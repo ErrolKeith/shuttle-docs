@@ -1,5 +1,6 @@
 ---
 title: "Shuttle Shared Databases"
+icon: "share"
 ---
 
 This plugin manages databases on [Shuttle](https://www.shuttle.rs) and connects them to your app. A shared database
@@ -7,20 +8,26 @@ will be on the same cluster as other user's databases, but it will not be access
 
 If you want a high performing and isolated database, consider [Shuttle AWS RDS](./shuttle-aws-rds).
 
-<Tip>You can connect to any type of remotely hosted database you want from your code, so do not let our current database offerings limit your creativity! Got other databases you want to see on Shuttle? Let us know!</Tip>
+<Tip>
+  You can connect to any type of remotely hosted database you want from your
+  code, so do not let our current database offerings limit your creativity! Got
+  other databases you want to see on Shuttle? Let us know!
+</Tip>
 
 ## Usage
+
 Add `shuttle-shared-db` to the dependencies for your service.
 Each type of database is behind the following feature flag and attribute path. `*-rustls` feature enables `rustls`-based implementation, otherwise some flavour of `native-tls` is used.
 
-| Engine   | Feature flags | Attribute path | Return type |
-|----------|---------------|----------------|-------------|
-| Postgres | `postgres` or `postgres-rustls` | `shuttle_shared_db::Postgres` | `sqlx::PgPool` |
-| MongoDB  | `mongodb` (uses rustls) | `shuttle_shared_db::MongoDb` | `mongodb::Database` |
+| Engine   | Feature flags                   | Attribute path                | Return type         |
+| -------- | ------------------------------- | ----------------------------- | ------------------- |
+| Postgres | `postgres` or `postgres-rustls` | `shuttle_shared_db::Postgres` | `sqlx::PgPool`      |
+| MongoDB  | `mongodb` (uses rustls)         | `shuttle_shared_db::MongoDb`  | `mongodb::Database` |
 
 ### Parameters
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+
+| Parameter | Type | Default | Description                                                                                          |
+| --------- | ---- | ------- | ---------------------------------------------------------------------------------------------------- |
 | local_uri | str  | `None`  | If specified, on local runs, connect to this database instead of starting a Docker container for it. |
 
 When setting the `local_uri` you can also insert secrets from `Secrets.toml` using string interpolation. To insert the
@@ -35,7 +42,11 @@ async fn poem(
 ) -> ShuttlePoem<impl poem::Endpoint> { ... }
 ```
 
-<Note>If you are interpolating a secret from `Secrets.dev.toml`, you need to set the same secret in `Secrets.toml` to a empty string so that this step does not crash in deployment.</Note>
+<Note>
+  If you are interpolating a secret from `Secrets.dev.toml`, you need to set the
+  same secret in `Secrets.toml` to a empty string so that this step does not
+  crash in deployment.
+</Note>
 
 The URI should be formatted according to the
 [Postgres](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) or

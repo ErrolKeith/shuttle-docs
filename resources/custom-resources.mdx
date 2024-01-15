@@ -1,14 +1,16 @@
 ---
 title: "Custom Resources"
+icon: "toolbox"
 ---
 
 This example shows how you can make a custom resource.
 
-The example resource we'll be making will be a Plain Data Object (which we will refer to as `pdo`), and outputs the value that you pass into the "name" attribute for the resource. 
+The example resource we'll be making will be a Plain Data Object (which we will refer to as `pdo`), and outputs the value that you pass into the "name" attribute for the resource.
 
 We are using the Axum framework in `main.rs` so we can showcase the resource in action, but the implementation is entirely separate from what web framework you use so you can add your custom resource to any Shuttle-hosted resource.
 
 You can clone the example below by running the following (you'll need `cargo-shuttle` installed):
+
 ```bash:
 cargo shuttle init --from https://github.com/shuttle-hq/shuttle-examples.git \
  --subfolder custom-resource/pdo
@@ -22,18 +24,20 @@ use std::sync::Arc;
 
 async fn hello_world(State(pdo): State<Arc<Pdo>>) -> String {
 // this should output "John"
-    pdo.name.clone()
+pdo.name.clone()
 }
 
 #[shuttle_runtime::main]
 async fn axum(#[Builder(name = "John")] pdo: Pdo) -> shuttle_axum::ShuttleAxum {
 // add the pdo object to app-wide state variables
-    let state = Arc::new(pdo);
-    let router = Router::new().route("/", get(hello_world)).with_state(state);
+let state = Arc::new(pdo);
+let router = Router::new().route("/", get(hello_world)).with_state(state);
 
     Ok(router.into())
+
 }
-```
+
+````
 
 ```rust src/lib.rs
 use async_trait::async_trait;
@@ -95,7 +99,7 @@ impl ResourceBuilder<Pdo> for Builder {
         })
     }
 }
-```
+````
 
 ```toml Cargo.toml
 [package]
@@ -112,4 +116,5 @@ shuttle-axum = "0.27.0"
 shuttle-runtime = "0.27.0"
 tokio = "1.28.2"
 ```
+
 </CodeGroup>

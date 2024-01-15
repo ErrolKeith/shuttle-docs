@@ -1,6 +1,7 @@
 ---
 title: "Deployment files"
 description: "How to handle files and folder for deployment"
+icon: "file"
 ---
 
 This page answers:
@@ -15,7 +16,10 @@ This page answers:
 
 When you run `cargo shuttle deploy`, all source files in your cargo workspace that are not ignored by `.gitignore` or `.ignore` rules are packed into a tar-gzip archive and uploaded to Shuttle, where they are then extracted, built, and hosted.
 
-<Info>The deployment POST request (after archive compression) has a size limit of 50 MB.</Info>
+<Info>
+  The deployment POST request (after archive compression) has a size limit of 50
+  MB.
+</Info>
 
 ### Ignore files
 
@@ -34,7 +38,10 @@ assets = [
 ]
 ```
 
-<Note>Specifying only a folder name, say `"static"`, does not work. Use `"static/*"` instead to include its contents.</Note>
+<Note>
+  Specifying only a folder name, say `"static"`, does not work. Use `"static/*"`
+  instead to include its contents.
+</Note>
 
 ### Debug deployment files
 

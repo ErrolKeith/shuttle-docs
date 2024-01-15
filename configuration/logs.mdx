@@ -1,6 +1,7 @@
 ---
 title: "Logs"
 description: "Tracing or logging in Shuttle apps."
+icon: "list"
 ---
 
 Shuttle will record anything your application writes to `stdout`, e.g. a `tracing` or `log` crate configured to write to `stdout`,
@@ -62,7 +63,7 @@ To view the logs for your current `running` deployment, if there is one:
 cargo shuttle logs
 ```
 
-*Caveat: The above command finds the oldest deployment in the `running` state. [related issue](https://github.com/shuttle-hq/shuttle/issues/1067)*
+_Caveat: The above command finds the oldest deployment in the `running` state. [related issue](https://github.com/shuttle-hq/shuttle/issues/1067)_
 
 You can also view logs of a specific deployment by adding the deployment id to this command:
 
